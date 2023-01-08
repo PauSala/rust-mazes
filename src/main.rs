@@ -37,7 +37,7 @@ impl WindowHandler for MyWindowHandler {
 }
 fn main() {
     let canvas_size = 800;
-    let size = 100 as u32;
+    let size = 300 as u32;
     let scale = canvas_size as f32 / size as f32;
     let window = Window::<()>::new_centered(
         "Mazes!",
