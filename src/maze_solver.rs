@@ -15,11 +15,9 @@ pub fn iterative_bfs_solver(graph: &HashMap<usize, HashSet<usize>>, from:usize, 
     frontier.push_front(from);
     visited[from as usize] = from;
 
-    /* Construct field for tracer */
     while !frontier.is_empty() {
         let p = frontier.pop_front();
 
-        // stop expanding if reached target point
         if p.unwrap() == to {
             break;
         }
@@ -33,12 +31,9 @@ pub fn iterative_bfs_solver(graph: &HashMap<usize, HashSet<usize>>, from:usize, 
             }
         }
     }
-
     println!("Building path...");
 
-    /* Follow the White rabbit */
     let mut p = to;
-
     path.push(p as usize);
 
     while p != from {
