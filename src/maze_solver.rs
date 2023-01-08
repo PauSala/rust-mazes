@@ -2,7 +2,6 @@ use std::{collections::{VecDeque, HashSet, HashMap}, time::SystemTime};
 
 pub fn iterative_bfs_solver(graph: &HashMap<usize, HashSet<usize>>, from:usize, to:usize) -> Vec<usize> {
 
-
     println!("Solving maze...");
     let start_time = SystemTime::now();
 

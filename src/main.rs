@@ -1,10 +1,10 @@
 use std::collections::{HashMap, HashSet};
 
-use rust_mazes::maze_generators::bfs_generator::{bfs_generator, draw_grid, draw_maze};
+use rust_mazes::maze_generators::bfs_generator::bfs_generator;
 
 use rust_mazes::maze_solver::iterative_bfs_solver;
+use rust_mazes::printers::{draw_grid, draw_maze, draw_solution};
 use speedy2d::color::Color;
-use speedy2d::shape::Rectangle;
 use speedy2d::window::{WindowHandler, WindowHelper};
 use speedy2d::{Graphics2D, Window};
 
@@ -28,33 +28,16 @@ impl WindowHandler for MyWindowHandler {
         }
         //draw solution
         if self.i < self.solution.len() {
-            let current_item = self.solution[self.i];
-            let row = current_item / self.size as usize;
-            let col = current_item % self.size as usize;
-            let top_left = (
-                col as f32 * self.scale + self.scale,
-                row as f32 * self.scale + self.scale,
-            )
-                .into();
-            let bottom_right = (
-                col as f32 * self.scale + self.scale * 2.0,
-                row as f32 * self.scale + self.scale * 2.0,
-            )
-                .into();
-            let rect = Rectangle::new(top_left, bottom_right);
-
-            graphics.draw_rectangle(rect, Color::from_int_rgba(118, 35, 237, 220));
+            draw_solution(graphics, &self.solution, self.i, self.size as usize, self.scale);
+            self.i = self.i + 1;
         }
-
-        self.i = self.i + 1;
-
-        // Request that we draw another frame once this one has finished
         helper.request_redraw();
+
     }
 }
 fn main() {
-    let canvas_size = 700;
-    let size = 799 as u32;
+    let canvas_size = 800;
+    let size = 100 as u32;
     let scale = canvas_size as f32 / size as f32;
     let window = Window::<()>::new_centered(
         "Mazes!",
@@ -65,9 +48,8 @@ fn main() {
     )
     .unwrap();
     let graph = bfs_generator((size.try_into().unwrap(), size.try_into().unwrap()));
-
     let solution = iterative_bfs_solver(&graph, 0, graph.len() - 1);
-    println!("Solution len: {}", solution.len());
+
     let i = 0;
     window.run_loop(MyWindowHandler {
         graph,
