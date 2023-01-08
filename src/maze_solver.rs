@@ -1,5 +1,6 @@
 use std::{collections::{VecDeque, HashSet, HashMap}, time::SystemTime};
 
+/**Credit to https://gist.github.com/vTurbine/16fbb99225ad4c0ac80b24855dd61a7c */
 pub fn iterative_bfs_solver(graph: &HashMap<usize, HashSet<usize>>, from:usize, to:usize) -> Vec<usize> {
 
     println!("Solving maze...");
